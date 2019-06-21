@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>project</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-cookies.js"></script>
+
+<script src="RouteConfig.js"></script>
+<script src="c_user/UserController.js"></script>
+<script src="c_blog/BlogController.js"></script>
+
+<script src="c_chat/ChatController.js"></script>
+<script src="c_chat/ChatService.js"></script>
+  
+<script src="c_friend/FriendController.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.1/sockjs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+
+<style>
+#hom { color:black; }
+#link a:hover { color:Blue; background-color:white; }
+</style>
+</head>
+
+<body ng-app="myApp">
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <div class="container-fluid" id="link">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" id="hom">Collaboration</a>
+    </div>
+    
+    <div ng-controller="UserController">
+ 
+ <ul class="nav navbar-nav">  
+ <li  ng-show="currentUser==undefined"><a href="#/userhome"  id="hom">Home</a></li>
+  <li ng-show="currentUser==undefined"><a href="#/login">Login</a></li>
+  <li ng-show="currentUser==undefined"><a href="#/register">Register</a></li>
+  <li ng-show="currentUser==undefined"><a href="#/contactus">Contact Us</a></li>
+  <li ng-show="currentUser==undefined"><a href="#/aboutus">About Us</a></li>
+  <li ng-hide="currentUser==undefined"><a href="#/chat">Chat</a></li>
+  
+  <li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog<span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a class="nav-link" href="#/addBlog" ng-show="currentUser.role=='ROLE_USER'">ADD BLOG</a>
+    <li><a class="nav-link" href="#/myBlog" ng-show="currentUser.role=='ROLE_USER'">MY BLOGs</a>
+    <li><a class="nav-link" href="#/manageBlog" ng-show="currentUser.role=='ROLE_ADMIN'">MANAGE BLOG</a>
+    <li><a class="nav-link" href="#/showBlog">SHOW ALL BLOGS</a></li>
+  </ul>
+ </li>
+ 
+  <li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Friend<span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a class="nav-link" href="#/showFriends" ng-hide="currentUser==undefined">SHOW FRIENDS</a>
+    <li><a class="nav-link" href="#/friendRequests" ng-hide="currentUser==undefined">FRIEND REQUESTS</a>
+    <li><a class="nav-link" href="#/suggestedFriends" ng-hide="currentUser==undefined'">SUGGESTED FRIENDS</a>
+  </ul>
+ </li>
+ 
+ <li class="active" ng-hide="currentUser==undefined">
+   <img src="http://localhost:8009/collaborationMiddleware/getImage/{{currentUser.username}}" width="50px" height="40px">
+    <h4 style="right:10px">Welcome {{currentUser.firstname}}</h4>
+    <a href="" ng-click="logout()">Logout</a>
+ </li>
+ </ul>   
+ </div>
+ 
+<div ng-view></div>
+</body>
+</html> 
+ 
+ 
